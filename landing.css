@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+    background-color: black;
+}
+
+/* Background Video */
+.video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120vh;
+    object-fit: cover;
+    z-index: -3;
+    opacity: 0.4;
+    filter: brightness(1.4) contrast(1.1);
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* Responsive Overlays */
+.brightness-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(49, 48, 48, 0.5), rgba(0, 0, 0, 0) 40%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 255, 0, 0.3), rgba(0, 255, 0, 0) 100%);
+    z-index: -1;
+}
+
+/* Quote Section */
+.quote {
+    position: absolute;
+    bottom: 10vh;
+    left: 5vw;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px rgb(0, 245, 0);
+}
+
+.author {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-top: 10px;
+    display: block;
+    opacity: 0.8;
+}
+
+/* Button Section */
+.button-container {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    display: inline-block;
+    position: relative;
+    transition: all 0.4s ease;
+    border: 1px solid #FF6F00;
+    text-align: center;
+    line-height: 60px;
+    width: clamp(200px, 40vw, 300px);
+    height: clamp(50px, 10vh, 60px);
+    color: #00ff00;
+    z-index: 1;
+    overflow: hidden;
+    background-color: transparent;
+    box-shadow: 0 0 10px rgb(0, 252, 0);
+    animation: colorCycle 2s infinite, breathing 3s infinite ease-in-out;
+}
+
+.button:before,
+.button:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 0%;
+    width: 100%;
+    z-index: -1;
+    background-color: #1b9c22;
+    opacity: 0;
+    transition: all .4s ease-in;
+}
+
+.button:after {
+    bottom: 0;
+    top: inherit;
+}
+
+.button:hover:before,
+.button:hover:after {
+    height: 50%;
+    opacity: 1;
+}
+
+.button:hover {
+    box-shadow: 0 3px 7px rgba(0,255,0,.5);
+}
+
+/* Animations */
+@keyframes colorCycle {
+    0% { border-color: #00ff00; color: #00ff00; } /* Green */
+    50% { border-color: #ffffff; color: #ffffff; } /* White */
+    100% { border-color: #00ff00; color: #00ff00; } /* Green */
+}
+
+@keyframes breathing {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .brightness-overlay, .overlay {
+        display: none;
+    }
+
+    .quote {
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+    .button-container {
+        bottom: 5vh;
+        width: 100%;
+    }
+}

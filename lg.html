@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking Bad Criminal Empire</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+         font-family: Arial, sans-serif;
+            color: white;
+        }
+body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background: url('https://img.freepik.com/free-photo/artistic-blurry-colorful-wallpaper-background_58702-8367.jpg') no-repeat center center ; 
+            background-size: cover;   
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .stats {
+            width: 50%;
+            background: #000000;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ff88;
+            border: 2px solid #00ff88;
+            transition: transform 0.3s ease;
+        }
+
+        .stats:hover {
+            transform: scale(1.05);
+        }
+
+        .stats h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ff88;
+            text-shadow: 0 0 15px #00ff88;
+        }
+
+        .stats h2 {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #00ff88;
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+        }
+
+        #map {
+            width: 40%;
+            height: 40%;
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ff88;
+            background: url('h.jpg') no-repeat center center;
+            background-size: cover;
+            transition: transform 0.3s ease;
+        }
+
+        #map:hover {
+            transform: scale(1.05);
+        }
+
+        #cash-pile, #heisenberg-hat {
+            width: 80px;
+            height: 80px;
+            display: none;
+            margin: 10px auto;
+            box-shadow: 0 0 10px #00ff88;
+            border-radius: 50%;
+        }
+
+        #cash-pile {
+            background: url('data:image/png;base64,INSERT_BASE64_CASH_PILE_HERE') no-repeat center/contain;
+            animation: bounce 1s infinite;
+        }
+
+        #heisenberg-hat {
+            background: url('data:image/png;base64,INSERT_BASE64_HAT_HERE') no-repeat center/contain;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="stats">
+            <h1>Your Empire Overview</h1>
+            <h2>Total Revenue: $<span id="revenue-amount">50,000</span></h2>
+            <h2>Meth Production Rate: 95%</h2>
+            <h2>Distribution Efficiency: 88%</h2>
+            <h2 style="color: orange;">Law Enforcement Risk: High</h2>
+            <canvas id="revenueChart"></canvas>
+            <div id="cash-pile"></div>
+            <div id="heisenberg-hat"></div>
+        </div>
+
+        <div id="map"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cashPile = document.getElementById('cash-pile');
+            const heisenbergHat = document.getElementById('heisenberg-hat');
+            const revenueAmount = document.getElementById('revenue-amount');
+            let revenue = 50000;
+
+            function increaseRevenue() {
+                revenue += Math.floor(Math.random() * 10000) + 5000;
+                revenueAmount.textContent = revenue.toLocaleString();
+
+                cashPile.style.display = 'block';
+                setTimeout(() => cashPile.style.display = 'none', 3000);
+
+                if (revenue >= 100000) {
+                    heisenbergHat.style.display = 'block';
+                }
+            }
+
+            setInterval(increaseRevenue, 5000);
+
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar'],
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: [5000, 15000, 30000],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { labels: { color: 'white', font: { size: 16, weight: 'bold' } } }
+                    },
+                    scales: {
+                        x: { ticks: { color: 'white' } },
+                        y: { ticks: { color: 'white' } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breaking Bad Business</title>
+  <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/originals/54/12/d8/5412d855b50ac9f22528d688a1c4174d.jpg"> <!-- Favicon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome for Icons -->
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, rgba(12, 215, 46, 0.8), rgba(0, 0, 0, 0.7)), url('https://i.pinimg.com/originals/3c/4f/51/3c4f51deec40415d10f8f8a6b94f2348.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      color: #fff;
+      transition: background 1s ease, color 1s ease;
+    }
+
+    /* Cooking Mode Styles */
+    .cooking-mode {
+      background: linear-gradient(135deg, rgba(12, 215, 46, 0.8), rgba(0, 0, 0, 0.4)), url('https://i.pinimg.com/originals/7a/d7/1f/7ad71f43b02126aef2996c80b7556706.jpg');
+    }
+
+    /* Fugitive Mode Styles (Black background) */
+    .fugitive-mode {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)); /* Black gradient */
+      color: #ffcc00; /* Red and yellow tones to match the fugitive theme */
+    }
+
+    /* Header with Navigation Bar */
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    /* Logo Styles */
+    .logo img {
+      height: 80px;
+      width: auto;
+      object-fit: contain;
+      margin-right: 40px;
+    }
+
+    /* Navigation Links */
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: uppercase;
+      transition: all 0.5s ease;
+    }
+
+    /* Hover effects for nav bar links */
+    nav ul li a:hover {
+      color: #ffcc00;
+      transform: scale(1.2) rotate(10deg);
+      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Toggle Button - Test Tube Icon */
+    .toggle-btn {
+      font-size: 2em;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    /* Slider Styles */
+    .slider {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
+      margin: 20px 0;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .slide img {
+      width: 100%;
+      height: auto;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    /* Description Styles */
+    .description {
+      padding: 40px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .description h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 10px rgba(12, 215, 46, 0.8);
+    }
+
+    .description p {
+      font-size: 1.4em;
+      line-height: 1.6;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* Social Media Icons */
+    .social-media-icons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-media-icons a {
+      font-size: 2em;
+      color: #33c21e;
+      text-decoration: none; /* Remove underline */
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-media-icons a:hover {
+      transform: scale(1.2);
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation Bar -->
+  <header>
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Breaking_Bad_logo.svg/640px-Breaking_Bad_logo.svg.png" alt="Breaking Bad Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="lg.html" target="_blank">Revenue & Risk Analytics</a></li>
+        <li><a href="rough.html" target="_blank">Operations Management Panel</a></li>
+      </ul>
+    </nav>
+    <div class="toggle-btn" onclick="toggleTheme()">⚗️</div> <!-- Test Tube Icon -->
+  </header>
+
+  <!-- Descriptive Text -->
+  <section class="description">
+    <h1>EL IMPERIO ES LO PRIMERO</h1>
+    <p>
+      "You asked me if I was in the meth business or the money business. Neither. I'm in the empire business."
+      <br>
+      This is your empire. <br>
+      Every piece of information, statistic, location, available at your fingertips.
+    </p>
+  </section>
+
+  <!-- Slider Section -->
+  <section class="slider">
+    <div class="slides">
+      <img src="https://cdn.britannica.com/49/251849-050-54AE4F9E/bryan-cranston-aaron-paul-breaking-bad.jpg" alt="Breaking Bad Image 1" class="slide">
+      <img src="https://live-production.wcms.abc-cdn.net.au/422f495afa9fb56e4ab6b65fed74fa23?impolicy=wcms_crop_resize&cropH=1075&cropW=1914&xPos=0&yPos=0&width=862&height=485" alt="Breaking Bad Image 2" class="slide">
+      <img src="https://media.gq.com/photos/5be307306494723a32a20ab1/16:9/w_2560%2Cc_limit/breaking-bad-movies-in-the-works-gq-1.jpg" alt="Breaking Bad Image 3" class="slide">
+    </div>
+    <button class="prev" onclick="prevSlide()">&#10094;</button>
+    <button class="next" onclick="nextSlide()">&#10095;</button>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 Breaking Bad Business. All rights reserved.</p>
+    <div class="social-media-icons">
+      <a href="https://www.facebook.com" target="_blank" class="fab fa-facebook-f"></a> <!-- Facebook icon -->
+      <a href="https://www.twitter.com" target="_blank" class="fab fa-twitter"></a> <!-- Twitter icon -->
+      <a href="https://www.instagram.com" target="_blank" class="fab fa-instagram"></a> <!-- Instagram icon -->
+    </div>
+  </footer>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(index) {
+      if (index >= slides.length) {
+        slideIndex = 0;
+      } else if (index < 0) {
+        slideIndex = slides.length - 1;
+      } else {
+        slideIndex = index;
+      }
+      const offset = -slideIndex * 100;
+      document.querySelector('.slides').style.transform = `translateX(${offset}%)`;
+    }
+
+    function nextSlide() {
+      showSlide(slideIndex + 1);
+    }
+
+    function prevSlide() {
+      showSlide(slideIndex - 1);
+    }
+
+    showSlide(slideIndex); // Initial slide
+
+    // Theme toggle function
+    function toggleTheme() {
+      document.body.classList.toggle('cooking-mode');
+      document.body.classList.toggle('fugitive-mode');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #222;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+        .dashboard {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .stat {
+            font-size: 1.2em;
+            margin: 5px 0;
+            padding: 8px;
+            background: #333;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+            width: 90%;
+        }
+        .stat:hover {
+            transform: scale(1.05);
+        }
+        @keyframes cashRain {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .cash {
+            font-size: 1.5em;
+            color: greenyellow;
+            animation: cashRain 0.5s ease-out;
+        }
+        .heisenberg {
+            font-size: 2em;
+            color: #ddd;
+            display: none;
+        }
+        .high-success .heisenberg {
+            display: block;
+            animation: spinHat 1s ease-in-out;
+        }
+        @keyframes spinHat {
+            0% { transform: rotate(0); }
+            100% { transform: rotate(360deg); }
+        }
+        .cash-pile {
+            font-size: 2em;
+            color: gold;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            animation: cashRain 1s infinite alternate;
+        }
+        .chart-container {
+            position: relative;
+            width: 95%;
+            max-width: 500px;
+        }
+        #chart {
+            width: 100%;
+            height: 250px;
+        }
+
+        /* Advanced DEA Warning Animation */
+        @keyframes glowAndShake {
+            0% {
+                transform: scale(1);
+                color: red;
+                text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
+            }
+            25% {
+                transform: scale(1.1) rotate(-5deg);
+                color: orange;
+                text-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange;
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+                color: yellow;
+                text-shadow: 0 0 10px yellow, 0 0 20px yellow, 0 0 30px yellow;
+            }
+            75% {
+                transform: scale(1.1) rotate(-5deg);
+                color: orange;
+                text-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange;
+            }
+            100% {
+                transform: scale(1) rotate(0);
+                color: red;
+                text-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red, 0 0 40px red;
+            }
+        }
+        .warning {
+            font-size: 2em;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            animation: glowAndShake 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard" id="dashboard">
+        <h1>Empire Dashboard</h1>
+        <div class="stat">Total Revenue: $<span id="revenue">20,000</span> <span class="cash">💰</span></div>
+        <div class="stat">Meth Production Rate: <span id="production">0</span> g/batch</div>
+        <div class="stat">Distribution Efficiency: <span id="efficiency">95</span>%</div>
+        <div class="stat">Law Enforcement Risk: <span id="risk">5</span>%</div>
+        <div class="stat">Purity Score: <span id="purity">0</span></div>
+        <div class="heisenberg" id="heisenberg">🎩 Heisenberg</div>
+        <div class="warning" id="warning">DEA is onto you!</div>
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+        <div class="cash-pile" id="cashPile">💰💰💰</div>
+    </div>
+
+    <script>
+        let revenue = 95000, production = 96, efficiency = 89, risk = 5, purity = 0, updates = 0;
+        const maxProduction = 100;
+        const warningThreshold = 7;  // Lowered risk threshold
+
+        function updateDashboard() {
+            if (updates >= 6 || production >= maxProduction) {
+                document.getElementById('heisenberg').style.display = 'block';
+                return;
+            }
+
+            revenue += Math.floor(Math.random() * 1000);
+            production = Math.min(maxProduction, production + Math.floor(Math.random() * 5));
+            efficiency = Math.min(100, efficiency + Math.floor(Math.random() * 5));
+            risk = Math.min(100, risk + Math.floor(Math.random() * 2));  // Slower risk increase
+            purity = Math.min(100, purity + Math.floor(Math.random() * 3)); // Increase purity score
+
+            // Adjust revenue based on purity score
+            revenue += Math.floor(purity * 10);
+
+            document.getElementById('revenue').textContent = revenue;
+            document.getElementById('production').textContent = production;
+            document.getElementById('efficiency').textContent = efficiency;
+            document.getElementById('risk').textContent = risk;
+            document.getElementById('purity').textContent = purity;
+            document.getElementById('cashPile').style.display = 'block';
+
+            // Show warning if risk level is too high
+            if (risk > warningThreshold) {
+                document.getElementById('warning').style.display = 'block';
+            } else {
+                document.getElementById('warning').style.display = 'none';
+            }
+
+            updates++;
+            updateChart();
+        }
+
+        const ctx = document.getElementById('chart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [],
+                    borderColor: 'yellow',
+                    borderWidth: 2,
+                    fill: false
+                }, {
+                    label: 'Purity Score',
+                    data: [],
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { beginAtZero: true },
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        function updateChart() {
+            if (updates >= 8 || production >= maxProduction) return;
+
+            chart.data.labels.push(new Date().toLocaleTimeString());
+            chart.data.datasets[0].data.push(revenue);
+            chart.data.datasets[1].data.push(purity);
+            if (chart.data.labels.length > 10) {
+                chart.data.labels.shift();
+                chart.data.datasets[0].data.shift();
+                chart.data.datasets[1].data.shift();
+            }
+            chart.update();
+        }
+
+        setInterval(updateDashboard, 2000);
+    </script>
+</body>
+</html>
