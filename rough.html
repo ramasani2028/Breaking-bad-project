@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking Bad - Operations Management Panel</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    font-family: 'PT Sans', sans-serif;
+    background: url('https://static1.srcdn.com/wordpress/wp-content/uploads/2020/01/Breaking-Bad-Walter-Jesse-Meth-Cook.jpg') center/cover no-repeat, #000;
+    background-size: cover;
+    color: #ffffff;
+    overflow: hidden;
+    animation: fadeIn 2s ease-in-out;
+    filter: brightness(1.4);
+}
+
+/* LEFT PANEL */
+#left-panel {
+    width: 35%;
+    padding: 20px;
+    overflow-y: auto;
+    background: rgba(10, 10, 10, 0.85);
+    color: #ffffff;
+    border-right: 5px solid #0b6623;
+    position: relative;
+    animation: slideInLeft 1.5s ease-out;
+}
+
+#left-panel h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    animation: breathe 3s infinite ease-in-out;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.location-box {
+    margin: 15px 0;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.75);
+    border-radius: 8px;
+    border-left: 4px solid #0b6623;
+    animation: breathe 3s infinite ease-in-out;
+}
+
+.location-box h3 {
+    color: #00ff00;
+    margin-bottom: 15px;
+    font-size: 22px;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+}
+
+.location-box p {
+    margin: 10px 0;
+    line-height: 1.6;
+    font-size: 16px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    padding: 8px;
+    background: rgba(30, 100, 30, 0.4);
+    border-radius: 4px;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* RIGHT PANEL */
+#right-panel {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: rgba(12, 15, 10, 0.85);
+    animation: slideInRight 1.5s ease-out;
+}
+
+/* OPERATIONS PANEL */
+#operations {
+    width: 100%;
+    height: 90vh;
+    background: rgba(30, 100, 30, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    animation: breathe 3s infinite ease-in-out;
+}
+
+#operations h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* MAP */
+#map {
+    flex: 1;
+    width: 100%;
+    border: 8px solid;
+    border-radius: 12px;
+    filter: sepia(5%) contrast(130%);
+    opacity: 0;
+    transform: scale(0.5);
+    animation: popIn 1.5s ease-out forwards, colorCycle 5s infinite linear;
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+    margin-top: 10px;
+}
+
+/* ANIMATIONS */
+@keyframes colorCycle {
+    0% { border-color: rgba(0, 255, 0, 0.6); box-shadow: 0 0 40px rgba(0, 255, 0, 0.4); }
+    33% { border-color: rgba(0, 68, 255, 0.6); box-shadow: 0 0 40px rgba(0, 68, 255, 0.4); }
+    66% { border-color: rgba(255, 215, 0, 0.6); box-shadow: 0 0 40px rgba(255, 215, 0, 0.4); }
+    100% { border-color: rgba(0, 255, 0, 0.6); box-shadow: 0 0 40px rgba(0, 255, 0, 0.4); }
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    animation: fadeIn 1s ease-out;
+}
+
+.toggle-label {
+    color: #ffffff;
+    font-size: 18px;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(20, 20, 20, 0.8);
+    transition: .4s;
+    border-radius: 34px;
+    border: 2px solid #0b6623;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #00ff00;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+input:checked + .slider {
+    background-color: rgba(30, 100, 30, 0.6);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Breathing effect for toggle */
+.toggle-switch:hover .slider:before {
+    animation: breathe 2s infinite ease-in-out;
+}
+.blur {
+            filter: blur(5px);
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 30%;
+            width: 40%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            z-index: 100;
+            animation: fadeIn 1s ease-in-out;
+        }
+        #popup h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #popup p {
+            margin-bottom: 10px;
+        }
+        .close-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #0b6623;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .close-btn:hover {
+            background-color: #004d1b;
+        }
+        #resetButton {
+    padding: 10px 20px;
+    background-color: #0b6623;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    transition: background-color 0.3s;
+}
+
+#resetButton:hover {
+    background-color: #004d1b;
+}
+.statistics-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 12px 24px; /* Padding */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.3); /* Subtle neon-like glow */
+    position: relative;
+    overflow: hidden;
+}
+
+.statistics-button::before {
+    content: ''; 
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: white;
+    animation: shutter 0.4s forwards;
+}
+
+.statistics-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 0 10px #00ff00, 0 0 15px #00ff00; /* Reduced neon glow */
+}
+
+.statistics-button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+    transform: translateY(0); /* Reset lift on click */
+    box-shadow: none; /* Remove glow on click */
+}
+
+@keyframes shutter {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes neon-glow {
+    0% {
+        text-shadow: 0 0 3px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+    }
+    50% {
+        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00;
+    }
+    100% {
+        text-shadow: 0 0 3px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+    }
+}
+
+.statistics-button:hover {
+    animation: neon-glow 1.5s ease-in-out infinite; /* Subtle neon glow effect on hover */
+}
+
+/* Neon effect for location names */
+.neon-text {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    background-color: #1b1b1b;
+    border-radius: 8px;
+    transition: text-shadow 0.3s ease-in-out;
+    /* Glowing neon effect */
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #ff0000, 0 0 40px #ff0000;
+}
+
+.neon-text:hover {
+    /* Intensity increase on hover for better effect */
+    text-shadow: 0 0 15px #00ff00, 0 0 25px #00ff00, 0 0 35px #ff0000, 0 0 45px #ff0000;
+}
+
+ </style>
+</head>
+<body>
+    <div id="left-panel">
+        <h2>Operations Management Panel</h2>
+        <div class="toggle-container">
+            <span class="toggle-label">Satellite View</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="viewToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div id="default-content">
+            <!-- Default content before clicking any pointer -->
+            <div class="location-box">
+                <h3>RV Laboratory</h3>
+                <p>Mobile methamphetamine production facility operating in the New Mexico desert. Primary advantage is mobility and discretion.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">Mobility: 95%</div>
+                    <div class="stat-item">Capacity: 60%</div>
+                    <div class="stat-item">Security: 75%</div>
+                    <div class="stat-item">Efficiency: 85%</div>
+                </div>
+                <p>Current Status: Operational<br>
+                Location: Variable - Desert Territory<br>
+                Operating Hours: On Demand</p>
+            </div>
+
+            <div class="location-box">
+                <h3>Superlab</h3>
+                <p>State-of-the-art underground laboratory facility. Industry-grade equipment ensures maximum production efficiency and quality control.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">Mobility: 0%</div>
+                    <div class="stat-item">Capacity: 100%</div>
+                    <div class="stat-item">Security: 95%</div>
+                    <div class="stat-item">Efficiency: 98%</div>
+                </div>
+                <p>Current Status: Active<br>
+                Location: Industrial District<br>
+                Operating Hours: 24/7</p>
+            </div>
+
+            <div class="location-box">
+                <h3>Warehouse</h3>
+                <p>Secondary production facility with moderate capacity. Serves as backup location and storage facility for equipment and materials.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">Mobility: 30%</div>
+                    <div class="stat-item">Capacity: 75%</div>
+                    <div class="stat-item">Security: 80%</div>
+                    <div class="stat-item">Efficiency: 70%</div>
+                </div>
+                <p>Current Status: Standby<br>
+                Location: Metropolitan Area<br>
+                Operating Hours: Variable</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="right-panel">
+        <div id="operations">
+            <h3>Operations Management Panel</h3>
+            <div id="map"></div>
+        </div>
+        <button id="resetButton" onclick="resetContent()">Reset Content</button>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9HrHWF4GoP13f2_xP_3fbn3rfQqPP8_w&callback=initMap" async defer></script>
+    <script src="operations.js"></script>
+</body>
+</html>
